@@ -10,13 +10,26 @@
         .input-content{
             width: 100%;
             border-radius: 8px;
+            display: flex;
 
-        input{
-            background-color: $other-grey;
-            border: none;
-            border-radius: 8px 0 0 8px;
-            width: 100%;
-            padding: 12px 0px 12px 20px;
-        }
+            .icon{
+                padding: 12px;
+                background-color: #ccc34c;
+                border-radius: 0 8px 8px 0;
+
+                img {
+                    height: 20px;
+                }
+            }
+
+            
+
+            input{
+                background-color: $other-grey;
+                border: none;
+                border-radius: 8px 0 0 8px;
+                width: 100%;
+                padding: 12px 0px 12px 20px;
+            }
     }
 }
