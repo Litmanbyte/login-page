@@ -1,0 +1,22 @@
+@use "C:/Users/User/Desktop/fullstack/login-page/src/styles/variables.scss" as *;
+
+.input-wrapper{
+        color : $text-color;
+        font-size: 16px;
+        text-align: start;
+        label{
+            margin-bottom: 10px;
+        }
+        .input-content{
+            width: 100%;
+            border-radius: 8px;
+
+        input{
+            background-color: $other-grey;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            width: 100%;
+            padding: 12px 0px 12px 20px;
+        }
+    }
+}
