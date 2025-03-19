@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 
+interface LoginForm {
+  email: FormControl,
+  password: FormControl
+}
 @Component({
   selector: 'app-login',
   imports: [DefaultLoginLayoutComponent,ReactiveFormsModule,PrimaryInputComponent],
@@ -15,8 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
   
-  loginForm! : FormGroup;
-  @Input() disablePrimaryBtn : boolean = true;
+  loginForm! : FormGroup<LoginForm>;
 
   constructor(private router : Router,
               private loginService: LoginService,
@@ -27,11 +30,13 @@ export class LoginComponent {
     })
   }
 
-  submit(){
-    this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: () => this.toastr.success("Sucesso"),
-      error : () => this.toastr.error("fail")
-    })
+  submit() {
+    const formData = this.loginForm.value;
+    console.log("formData enviado para login:", formData); // Exibe os dados do formulário
+    if (this.loginForm.invalid) {
+      this.toastr.error("Preencha todos os campos corretamente!");
+      return;
+  }
   }
 
   navigate() {
