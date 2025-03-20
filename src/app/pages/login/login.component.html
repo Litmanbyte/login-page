@@ -5,13 +5,13 @@ secondaryBtnText="Cadastre-se"
 (submit)="submit()"
 (navigate)="navigate()"
 >
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
         <app-primary-input
         formControlName="email"
         inputName="email"
         type="email"
         label="Email"
-        placeholder="ze@email.com">
+        placeholder="">
         <img src="assets/SVG/email.svg"/>
     </app-primary-input>
     

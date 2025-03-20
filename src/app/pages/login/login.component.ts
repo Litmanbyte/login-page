@@ -33,10 +33,11 @@ export class LoginComponent {
   submit() {
     const formData = this.loginForm.value;
     console.log("formData enviado para login:", formData); // Exibe os dados do formulário
+    this.toastr.success("Login efetuado")
     if (this.loginForm.invalid) {
       this.toastr.error("Preencha todos os campos corretamente!");
       return;
-  }
+    }
   }
 
   navigate() {
