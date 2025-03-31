@@ -1,24 +1,19 @@
 import { Injectable } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from './auth-services.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthService {
-  constructor(private keycloak: KeycloakService) {}
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  async init() {
-    await this.keycloak.init({
-      config: {
-        url: 'http://localhost:9090',
-        realm: 'Gerenciamento-laudos',
-        clientId: 'laudos'
-      },
-      initOptions: {
-        onLoad: 'login-required',
-        checkLoginIframe: false,
-        redirectUri: 'http://localhost:4200/user' // Defina para onde o usuário será redirecionado
-      }
-    });
+  canActivate(): boolean {
+    if (this.authService.isAuthenticated()) {
+      return true; // Permite acesso à rota
+    } else {
+      this.router.navigate(['/login']); // Redireciona para login
+      return false;
+    }
   }
 }
