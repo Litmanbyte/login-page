@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthService {
+  constructor(private keycloak: KeycloakService) {}
 
-  constructor(private router: Router) {}
-
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const authToken = sessionStorage.getItem('auth-token');
-
-    if (authToken) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+  async init() {
+    await this.keycloak.init({
+      config: {
+        url: 'http://localhost:9090',
+        realm: 'Gerenciamento-laudos',
+        clientId: 'laudos'
+      },
+      initOptions: {
+        onLoad: 'login-required',
+        checkLoginIframe: false,
+        redirectUri: 'http://localhost:4200/user' // Defina para onde o usuário será redirecionado
+      }
+    });
   }
 }
