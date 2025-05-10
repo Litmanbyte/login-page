@@ -1,0 +1,96 @@
+
+.dialog-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    margin: 0 0 16px 0;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+
+  label {
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+  }
+
+  mat-slider {
+    width: 100%;
+  }
+
+  .rating-value {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+
+    span {
+      font-size: 0.875rem;
+      color: black;
+    }
+  }
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: black 1px solid;
+  background-color: white;
+
+  button {
+    min-width: 80px;
+  }
+}
+
+/* Estilos para telas pequenas */
+@media (max-width: 600px) {
+  .dialog-container {
+    padding: 16px;
+  }
+
+  .rating-container {
+    padding: 12px 0;
+  }
+}
+
+/* Efeitos de hover e foco */
+mat-option:hover {
+  background-color: black;
+}
+
+mat-slider {
+  &:hover {
+    .mat-slider-track-background {
+      background-color: black;
+    }
+  }
+
+  &.mat-slider-min-value:not(.mat-slider-thumb-label-showing) {
+    .mat-slider-thumb {
+      border-color: black;
+    }
+  }
+}
+
+/* Animação de transição */
+.mat-dialog-container {
+  transition: all 0.3s ease-out;
+}

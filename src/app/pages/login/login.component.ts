@@ -34,24 +34,27 @@ export class LoginComponent {
 
   submit() {
     if (this.loginForm.invalid) {
-      this.toastr.error("Erro ao fazer login");
+      this.toastr.error("Por favor, preencha todos os campos corretamente");
       return;
     }
 
     const { email, password } = this.loginForm.value;
+    
+    if (!email || !password) {
+      this.toastr.error("Email e senha são obrigatórios");
+      return;
+    }
 
-    this.loginService.login(email!, password!).subscribe({
+    this.loginService.login(email, password).subscribe({
       next: () => {
         this.toastr.success("Login efetuado com sucesso!");
-        this.router.navigate(['/user']); // Redireciona para a página principal após login
+        this.router.navigate(['/listagem']); // Redirect to movie list
       },
       error: (error) => {
+        console.error('Login error:', error);
         this.toastr.error(error.message || "Erro ao fazer login");
       }
     });
   }
 
-  navigate() {
-    this.router.navigate(["signup"]);
-  }
 }

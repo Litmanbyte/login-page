@@ -1,0 +1,88 @@
+@use '@angular/material' as mat;
+
+.container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Título - Estilo simplificado */
+h1 {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 16px 0 24px;
+}
+
+/* Botão - Mantendo o padrão Material */
+.avaliar-btn {
+  margin-bottom: 24px;
+}
+
+/* Lista de Filmes */
+.filme-list {
+  display: grid;
+  gap: 16px;
+}
+
+/* Card - Estilo Material simplificado */
+.filme-card {
+  @include mat.elevation(1);
+  padding: 16px;
+  border-radius: 4px;
+  background: white;
+
+  &:hover {
+    @include mat.elevation(2);
+  }
+
+  .filme-header {
+    margin-bottom: 8px;
+    
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.87);
+    }
+    
+    .avaliado-em {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    mat-icon {
+      color: #ffc107; // Amarelo Material
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+    
+    .nota {
+      font-size: 14px;
+      margin-left: 8px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+/* Estado Vazio */
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+  color: rgba(0, 0, 0, 0.6);
+  
+  mat-icon {
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+}

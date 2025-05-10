@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Avaliar Filme</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Selecione um filme</mat-label>
+    <mat-select [(ngModel)]="filmeSelecionado">
+      <mat-option *ngFor="let filme of filmesDisponiveis$ | async" [value]="filme"> 
+        {{ filme.original_title || filme.title }} 
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="rating-container">
+  <label>Avaliação:</label>
+  <div class="stars">
+    <button *ngFor="let star of [1,2,3,4,5]" mat-icon-button (click)="nota = star">
+      <mat-icon color="warn">
+        {{ star <= nota ? 'star' : 'star_border' }}
+      </mat-icon>
+    </button>
+  </div>
+  <span>{{ nota }} estrela{{ nota > 1 ? 's' : '' }}</span>
+</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="avaliar()" [disabled]="!filmeSelecionado">
+    Avaliar
+  </button>
+</mat-dialog-actions>

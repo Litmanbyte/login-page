@@ -17,7 +17,6 @@ export class LoginService {
   constructor() { }
 
   login(email: string, password: string) {
-    // Simula uma chamada assíncrona com delay
     return of(this.mockUsers.find(user => 
       user.email === email && user.password === password
     )).pipe(
@@ -33,23 +32,4 @@ export class LoginService {
     );
   }
 
-  signup(name: string, email: string, password: string) {
-    // Simula cadastro - apenas adiciona ao array mockado (não persiste entre recarregamentos)
-    const newUser = {
-      name,
-      email,
-      password,
-      token: `mock-token-${Math.random().toString(36).substr(2, 9)}`
-    };
-    
-    this.mockUsers.push(newUser);
-    
-    return of(newUser).pipe(
-      delay(500), // Simula tempo de resposta
-      tap((value) => {
-        sessionStorage.setItem("auth-token", value.token);
-        sessionStorage.setItem("username", value.name);
-      })
-    );
-  }
 }

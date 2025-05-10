@@ -53,7 +53,7 @@ main {
             display: flex;
             flex-direction: row;
             font-size: 12px;
-            color: lightgray;
+            color: black;
             font-weight: 400;
             align-items: center;
             justify-content: center;
@@ -64,7 +64,7 @@ main {
 
             div {
                 width: 100%;
-                background-color: lightgrey;
+                background-color: black;
                 height: 2px;
                 flex-grow: 1;
             }

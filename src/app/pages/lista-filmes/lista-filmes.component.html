@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Meus Filmes Avaliados</h1>
+  
+  <div class="avaliar-btn">
+    <button mat-raised-button color="primary" (click)="abrirModalAvaliacao()">
+      <mat-icon>add</mat-icon> Avaliar Filme
+    </button>
+  </div>
+
+  <div class="filme-list">
+    <div *ngFor="let filme of filmesAvaliados$ | async" class="filme-card">
+      <div class="filme-header">
+        <h2>{{filme.original_title}}</h2>
+        <div class="avaliado-em">Avaliado em {{filme.avaliadoEm | date}}</div>
+      </div>
+      
+      <div class="rating">
+        <mat-icon *ngFor="let star of [1,2,3,4,5]" 
+              [class.filled]="star <= (filme.notaUsuario || 0)">
+        {{ star <= (filme.notaUsuario || 0) ? 'star' : 'star_border' }}
+      </mat-icon>
+        <span class="nota">({{filme.notaUsuario}}/5)</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!(filmesAvaliados$ | async)?.length" class="empty-state">
+    <mat-icon>movie</mat-icon>
+    <p>Você ainda não avaliou nenhum filme</p>
+  </div>
+</div>
