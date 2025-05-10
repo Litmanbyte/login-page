@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-user',
@@ -12,21 +11,15 @@ export class UserComponent {
 
   helloText = '';
 
-  constructor(private oauthService: OAuthService, private httpClient : HttpClient){
+  constructor( private httpClient : HttpClient){
 
   }
 
   logout(){
-    this.oauthService.logOut();
+    sessionStorage.removeItem("auth-token");
+    sessionStorage.removeItem("username");
+    window.location.reload();
   }
   
-  getText(){
-    this.httpClient.get<{m: string}>('http://localhost:8080/dados',{//o param deve ser igual ao q esta no back
-      headers: {
-        'Authorization': `Bearer ${this.oauthService.getAccessToken()}`
-      }
-    }).subscribe(result => {
-      this.helloText = result.m;
-    })
-  }
+  
 }

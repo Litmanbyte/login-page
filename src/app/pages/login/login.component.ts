@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { DefaultLoginLayoutComponent } from '../../components/default-login-layout/default-login-layout.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
@@ -10,34 +10,45 @@ interface LoginForm {
   email: FormControl,
   password: FormControl
 }
+
 @Component({
   selector: 'app-login',
-  imports: [DefaultLoginLayoutComponent,ReactiveFormsModule,PrimaryInputComponent],
-  providers: [LoginService],
+  standalone: true,
+  imports: [DefaultLoginLayoutComponent, ReactiveFormsModule, PrimaryInputComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  
-  loginForm! : FormGroup<LoginForm>;
+  loginForm!: FormGroup<LoginForm>;
 
-  constructor(private router : Router,
-              private loginService: LoginService,
-              private toastr: ToastrService){
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private toastr: ToastrService
+  ) {
     this.loginForm = new FormGroup({
-      email: new FormControl('',[Validators.required,Validators.email]),
-      password: new FormControl('',[Validators.required,Validators.minLength(6)])
-    })
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    });
   }
 
   submit() {
-    const formData = this.loginForm.value;
-    console.log("formData enviado para login:", formData); // Exibe os dados do formulário
-    this.toastr.success("Login efetuado")
     if (this.loginForm.invalid) {
-      this.toastr.error("Preencha todos os campos corretamente!");
+      this.toastr.error("Erro ao fazer login");
       return;
     }
+
+    const { email, password } = this.loginForm.value;
+
+    this.loginService.login(email!, password!).subscribe({
+      next: () => {
+        this.toastr.success("Login efetuado com sucesso!");
+        this.router.navigate(['/user']); // Redireciona para a página principal após login
+      },
+      error: (error) => {
+        this.toastr.error(error.message || "Erro ao fazer login");
+      }
+    });
   }
 
   navigate() {
