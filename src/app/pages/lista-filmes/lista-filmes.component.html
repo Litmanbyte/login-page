@@ -9,17 +9,44 @@
 
   <div class="filme-list">
     <div *ngFor="let filme of filmesAvaliados$ | async" class="filme-card">
-      <div class="filme-header">
+      <div class="filme-header" (click)="toggleDetalhes(filme.id)">
         <h2>{{filme.original_title}}</h2>
-        <div class="avaliado-em">Avaliado em {{filme.avaliadoEm | date}}</div>
+        <div class="avaliado-em">Avaliado em {{filme.avaliadoEm | date:'dd/MM/yyyy'}}</div>
+        <mat-icon class="expand-icon">
+          {{filmeSelecionado === filme.id ? 'expand_less' : 'expand_more'}}
+        </mat-icon>
       </div>
       
       <div class="rating">
         <mat-icon *ngFor="let star of [1,2,3,4,5]" 
               [class.filled]="star <= (filme.notaUsuario || 0)">
-        {{ star <= (filme.notaUsuario || 0) ? 'star' : 'star_border' }}
-      </mat-icon>
+          {{ star <= (filme.notaUsuario || 0) ? 'star' : 'star_border' }}
+        </mat-icon>
         <span class="nota">({{filme.notaUsuario}}/5)</span>
+      </div>
+
+      <div *ngIf="filmeSelecionado === filme.id" class="detalhes-filme">
+        <div class="detalhes-row">
+          <span class="detalhes-label">Título Original:</span>
+          <span>{{filme.original_title}}</span>
+        </div>
+        <div class="detalhes-row">
+          <span class="detalhes-label">Idioma Original:</span>
+          <span>{{filme.original_language}}</span>
+        </div>
+        <div class="detalhes-row">
+        <span class="detalhes-label">Lançamento:</span>
+        <span>{{filme.release_date | date:'dd/MM/yyyy'}}</span>
+      </div>
+        <div class="detalhes-row">
+          <span class="detalhes-label">Média de Votos:</span>
+          <span>{{filme.vote_average}}</span>
+        </div>
+        <div class="detalhes-row">
+          <span class="detalhes-label">Sinopse:</span>
+          <span>{{ filme.overview || 'Sem sinopse' }}</span>
+        </div>
+        
       </div>
     </div>
   </div>

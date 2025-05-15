@@ -28,6 +28,12 @@ export class ListaFilmesComponent {
   // First declare the property
   filmesAvaliados$!: Observable<filmeAvaliado[]>;
 
+  filmeSelecionado: number | null = null;
+
+  toggleDetalhes(filmeId: number): void {
+    this.filmeSelecionado = this.filmeSelecionado === filmeId ? null : filmeId;
+  }
+
   // Then the constructor
   constructor(
     private filmeService: MovieService,

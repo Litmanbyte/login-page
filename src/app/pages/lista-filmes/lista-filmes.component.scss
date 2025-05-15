@@ -86,3 +86,37 @@ h1 {
     margin-bottom: 16px;
   }
 }
+.filme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.expand-icon {
+  margin-left: 8px;
+}
+
+.detalhes-filme {
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.detalhes-row {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.detalhes-label {
+  font-weight: bold;
+  min-width: 150px;
+}
+
+.filme-card {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
